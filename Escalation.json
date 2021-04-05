@@ -1,0 +1,839 @@
+{
+    "metadata": {
+        "description": null,
+        "entryPointPosition": {
+            "x": 10,
+            "y": 281
+        },
+        "hash": "49a8f7679f6765f529f63c74f50b28eebbc9d4c4c27aa1dab107df4b91678a29",
+        "name": "Escalation",
+        "snapToGrid": false,
+        "status": "published",
+        "type": "contactFlow"
+    },
+    "modules": [
+        {
+            "branches": [
+                {
+                    "condition": "Success",
+                    "transition": "28c10305-5f99-42e7-87f2-3bb58614966f"
+                }
+            ],
+            "id": "b772297d-eb6a-466e-b434-74840c1a003c",
+            "metadata": {
+                "position": {
+                    "x": 2452,
+                    "y": 814
+                },
+                "useDynamic": false
+            },
+            "parameters": [
+                {
+                    "name": "Text",
+                    "namespace": null,
+                    "value": "Goodbye."
+                },
+                {
+                    "name": "TextToSpeechType",
+                    "value": "text"
+                }
+            ],
+            "type": "PlayPrompt"
+        },
+        {
+            "branches": [
+                {
+                    "condition": "Success",
+                    "transition": "b772297d-eb6a-466e-b434-74840c1a003c"
+                },
+                {
+                    "condition": "Error",
+                    "transition": "59ea810a-7092-45f2-b6a6-53c26f815714"
+                }
+            ],
+            "id": "6763e7ac-6c9a-4578-9546-a4b103be8890",
+            "metadata": {
+                "dynamicMetadata": {},
+                "position": {
+                    "x": 1956,
+                    "y": 557
+                },
+                "useDynamic": false
+            },
+            "parameters": [
+                {
+                    "name": "FunctionArn",
+                    "namespace": null,
+                    "value": "SendPageARN"
+                },
+                {
+                    "name": "TimeLimit",
+                    "value": "3"
+                }
+            ],
+            "target": "Lambda",
+            "type": "InvokeExternalResource"
+        },
+        {
+            "branches": [],
+            "id": "28c10305-5f99-42e7-87f2-3bb58614966f",
+            "metadata": {
+                "position": {
+                    "x": 2712,
+                    "y": 956
+                }
+            },
+            "parameters": [],
+            "type": "Disconnect"
+        },
+        {
+            "branches": [
+                {
+                    "condition": "Success",
+                    "transition": "be627dc9-ddc7-46d7-a813-0c83a94fd18c"
+                }
+            ],
+            "id": "59ea810a-7092-45f2-b6a6-53c26f815714",
+            "metadata": {
+                "position": {
+                    "x": 2182,
+                    "y": 742
+                },
+                "useDynamic": false
+            },
+            "parameters": [
+                {
+                    "name": "Text",
+                    "namespace": null,
+                    "value": "There was an error paging the team."
+                },
+                {
+                    "name": "TextToSpeechType",
+                    "value": "text"
+                }
+            ],
+            "type": "PlayPrompt"
+        },
+        {
+            "branches": [
+                {
+                    "condition": "Success",
+                    "transition": "be627dc9-ddc7-46d7-a813-0c83a94fd18c"
+                }
+            ],
+            "id": "da83e46a-6d87-418f-a571-9a6dd89bc9cb",
+            "metadata": {
+                "position": {
+                    "x": 580,
+                    "y": 1170
+                },
+                "useDynamic": false
+            },
+            "parameters": [
+                {
+                    "name": "Text",
+                    "namespace": null,
+                    "value": "There was an error getting the phone number."
+                },
+                {
+                    "name": "TextToSpeechType",
+                    "value": "text"
+                }
+            ],
+            "type": "PlayPrompt"
+        },
+        {
+            "branches": [
+                {
+                    "condition": "Success",
+                    "transition": "be627dc9-ddc7-46d7-a813-0c83a94fd18c"
+                }
+            ],
+            "id": "ebe98453-878a-47d9-bf79-8f497be1cf78",
+            "metadata": {
+                "position": {
+                    "x": 1647,
+                    "y": 101
+                },
+                "useDynamic": false
+            },
+            "parameters": [
+                {
+                    "name": "Text",
+                    "namespace": null,
+                    "value": "There was an error confirming your number."
+                },
+                {
+                    "name": "TextToSpeechType",
+                    "value": "text"
+                }
+            ],
+            "type": "PlayPrompt"
+        },
+        {
+            "branches": [
+                {
+                    "condition": "Success",
+                    "transition": "be627dc9-ddc7-46d7-a813-0c83a94fd18c"
+                }
+            ],
+            "id": "d7d96821-9108-48b3-aad1-98bc0ebb936d",
+            "metadata": {
+                "position": {
+                    "x": 1447,
+                    "y": 935
+                },
+                "useDynamic": false
+            },
+            "parameters": [
+                {
+                    "name": "Text",
+                    "namespace": null,
+                    "value": "There was an error storing your number."
+                },
+                {
+                    "name": "TextToSpeechType",
+                    "value": "text"
+                }
+            ],
+            "type": "PlayPrompt"
+        },
+        {
+            "branches": [
+                {
+                    "condition": "Success",
+                    "transition": "a9a47538-29c8-4cdd-a849-ecb9f9c0b6a3"
+                },
+                {
+                    "condition": "Error",
+                    "transition": "d7d96821-9108-48b3-aad1-98bc0ebb936d"
+                }
+            ],
+            "id": "7fde898a-69c0-46fb-a9ef-eecad503502e",
+            "metadata": {
+                "position": {
+                    "x": 980,
+                    "y": 369
+                }
+            },
+            "parameters": [
+                {
+                    "key": "TheNumber",
+                    "name": "Attribute",
+                    "namespace": "System",
+                    "value": "Stored customer input"
+                }
+            ],
+            "type": "SetAttributes"
+        },
+        {
+            "branches": [
+                {
+                    "condition": "Success",
+                    "transition": "be627dc9-ddc7-46d7-a813-0c83a94fd18c"
+                }
+            ],
+            "id": "e62ea169-6a55-4818-b69b-5653f2c61739",
+            "metadata": {
+                "position": {
+                    "x": 943,
+                    "y": 1072
+                },
+                "useDynamic": false
+            },
+            "parameters": [
+                {
+                    "name": "Text",
+                    "namespace": null,
+                    "value": "There was an error sending the SMS."
+                },
+                {
+                    "name": "TextToSpeechType",
+                    "value": "text"
+                }
+            ],
+            "type": "PlayPrompt"
+        },
+        {
+            "branches": [
+                {
+                    "condition": "Success",
+                    "transition": "67257e8d-879e-443f-a291-b81961963da3"
+                }
+            ],
+            "id": "66a93172-becd-48f9-8467-7ab14d3dfd4a",
+            "metadata": {
+                "position": {
+                    "x": 958,
+                    "y": 12
+                },
+                "useDynamic": false
+            },
+            "parameters": [
+                {
+                    "name": "Text",
+                    "namespace": null,
+                    "value": "<speak>You are calling from an Australian mobile and your number is: <prosody rate=\"x-slow\"><say-as interpret-as=\"characters\">$.Attributes.TheNumber</say-as></prosody>.</speak>"
+                },
+                {
+                    "name": "TextToSpeechType",
+                    "value": "ssml"
+                }
+            ],
+            "type": "PlayPrompt"
+        },
+        {
+            "branches": [
+                {
+                    "condition": "Evaluate",
+                    "conditionType": "Equals",
+                    "conditionValue": "1",
+                    "transition": "67257e8d-879e-443f-a291-b81961963da3"
+                },
+                {
+                    "condition": "Evaluate",
+                    "conditionType": "Equals",
+                    "conditionValue": "2",
+                    "transition": "845de017-7770-4f93-ba05-e7affffd0e88"
+                },
+                {
+                    "condition": "Timeout",
+                    "transition": "67257e8d-879e-443f-a291-b81961963da3"
+                },
+                {
+                    "condition": "NoMatch",
+                    "transition": "67257e8d-879e-443f-a291-b81961963da3"
+                },
+                {
+                    "condition": "Error",
+                    "transition": "ebe98453-878a-47d9-bf79-8f497be1cf78"
+                }
+            ],
+            "id": "a9a47538-29c8-4cdd-a849-ecb9f9c0b6a3",
+            "metadata": {
+                "conditionMetadata": [
+                    {
+                        "id": "510b81f0-6db1-426b-9187-fb7a3ede6a56",
+                        "value": "1"
+                    },
+                    {
+                        "id": "a8a3cb87-2f2f-4194-86d4-a01e2b9ab1e1",
+                        "value": "2"
+                    }
+                ],
+                "position": {
+                    "x": 1226,
+                    "y": 78
+                },
+                "useDynamic": false
+            },
+            "parameters": [
+                {
+                    "name": "Text",
+                    "namespace": null,
+                    "value": "<speak>The number you entered is: <prosody rate=\"x-slow\"><say-as interpret-as=\"characters\">$.Attributes.TheNumber</say-as></prosody>.\nIf this is correct press one, if you would like to re enter it press two</speak>"
+                },
+                {
+                    "name": "TextToSpeechType",
+                    "value": "ssml"
+                },
+                {
+                    "name": "Timeout",
+                    "value": "10"
+                },
+                {
+                    "name": "MaxDigits",
+                    "value": "1"
+                }
+            ],
+            "target": "Digits",
+            "type": "GetUserInput"
+        },
+        {
+            "branches": [
+                {
+                    "condition": "Success",
+                    "transition": "66a93172-becd-48f9-8467-7ab14d3dfd4a"
+                },
+                {
+                    "condition": "Error",
+                    "transition": "d7d96821-9108-48b3-aad1-98bc0ebb936d"
+                }
+            ],
+            "id": "8c449d44-e72a-4835-a2b8-97718fdd58dd",
+            "metadata": {
+                "position": {
+                    "x": 697,
+                    "y": 18
+                }
+            },
+            "parameters": [
+                {
+                    "key": "TheNumber",
+                    "name": "Attribute",
+                    "namespace": "External",
+                    "value": "Number"
+                }
+            ],
+            "type": "SetAttributes"
+        },
+        {
+            "branches": [
+                {
+                    "condition": "Success",
+                    "transition": "6763e7ac-6c9a-4578-9546-a4b103be8890"
+                }
+            ],
+            "id": "fe0328bf-0121-4882-a3d5-d8cf96a4090a",
+            "metadata": {
+                "position": {
+                    "x": 1717,
+                    "y": 430
+                },
+                "useDynamic": false
+            },
+            "parameters": [
+                {
+                    "name": "Text",
+                    "namespace": null,
+                    "value": "Thank you. We will alert the necessary team."
+                },
+                {
+                    "name": "TextToSpeechType",
+                    "value": "text"
+                }
+            ],
+            "type": "PlayPrompt"
+        },
+        {
+            "branches": [
+                {
+                    "condition": "Success",
+                    "transition": "be627dc9-ddc7-46d7-a813-0c83a94fd18c"
+                }
+            ],
+            "id": "3e4234eb-1132-4981-a5eb-06eb34d30d56",
+            "metadata": {
+                "position": {
+                    "x": 1476,
+                    "y": 736
+                },
+                "useDynamic": false
+            },
+            "parameters": [
+                {
+                    "name": "Text",
+                    "namespace": null,
+                    "value": "There was an error storing the 4 digit code."
+                },
+                {
+                    "name": "TextToSpeechType",
+                    "value": "text"
+                }
+            ],
+            "type": "PlayPrompt"
+        },
+        {
+            "branches": [
+                {
+                    "condition": "Success",
+                    "transition": "28c10305-5f99-42e7-87f2-3bb58614966f"
+                }
+            ],
+            "id": "be627dc9-ddc7-46d7-a813-0c83a94fd18c",
+            "metadata": {
+                "position": {
+                    "x": 1955,
+                    "y": 1111
+                },
+                "useDynamic": false
+            },
+            "parameters": [
+                {
+                    "name": "Text",
+                    "namespace": null,
+                    "value": "Please hang up and try again."
+                },
+                {
+                    "name": "TextToSpeechType",
+                    "value": "text"
+                }
+            ],
+            "type": "PlayPrompt"
+        },
+        {
+            "branches": [
+                {
+                    "condition": "Success",
+                    "transition": "fb43fc11-d2dc-4fc9-b22c-eaf02152cbdf"
+                }
+            ],
+            "id": "265fe1c7-97d7-4885-8d14-069e052d7fdd",
+            "metadata": {
+                "position": {
+                    "x": 1878,
+                    "y": 1424
+                },
+                "useDynamic": false
+            },
+            "parameters": [
+                {
+                    "name": "Text",
+                    "namespace": null,
+                    "value": "The number was incorrect. Please try again."
+                },
+                {
+                    "name": "TextToSpeechType",
+                    "value": "text"
+                }
+            ],
+            "type": "PlayPrompt"
+        },
+        {
+            "branches": [
+                {
+                    "condition": "Success",
+                    "transition": "fe0328bf-0121-4882-a3d5-d8cf96a4090a"
+                },
+                {
+                    "condition": "Error",
+                    "transition": "265fe1c7-97d7-4885-8d14-069e052d7fdd"
+                }
+            ],
+            "id": "46513db9-920a-4ccd-952c-a61219616672",
+            "metadata": {
+                "dynamicMetadata": {
+                    "4DigitCode": true
+                },
+                "position": {
+                    "x": 1484,
+                    "y": 493
+                },
+                "useDynamic": false
+            },
+            "parameters": [
+                {
+                    "name": "FunctionArn",
+                    "namespace": null,
+                    "value": "Check4DigitCodeARN"
+                },
+                {
+                    "name": "TimeLimit",
+                    "value": "3"
+                },
+                {
+                    "key": "4DigitCode",
+                    "name": "Parameter",
+                    "namespace": "System",
+                    "value": "Stored customer input"
+                }
+            ],
+            "target": "Lambda",
+            "type": "InvokeExternalResource"
+        },
+        {
+            "branches": [
+                {
+                    "condition": "Success",
+                    "transition": "8c449d44-e72a-4835-a2b8-97718fdd58dd"
+                },
+                {
+                    "condition": "Error",
+                    "transition": "845de017-7770-4f93-ba05-e7affffd0e88"
+                }
+            ],
+            "id": "aff6ee6d-f1a3-49de-aa1b-d119152870f0",
+            "metadata": {
+                "dynamicMetadata": {},
+                "position": {
+                    "x": 458,
+                    "y": 29
+                },
+                "useDynamic": false
+            },
+            "parameters": [
+                {
+                    "name": "FunctionArn",
+                    "namespace": null,
+                    "value": "CheckCallerIDARN"
+                },
+                {
+                    "name": "TimeLimit",
+                    "value": "3"
+                }
+            ],
+            "target": "Lambda",
+            "type": "InvokeExternalResource"
+        },
+        {
+            "branches": [
+                {
+                    "condition": "Success",
+                    "transition": "021fbe23-b9f8-40b3-a146-8210e43ca967"
+                }
+            ],
+            "id": "10160628-a8df-48b5-b8b1-3715d2c03cbd",
+            "metadata": {
+                "defaultVoice": "None",
+                "overrideConsoleVoice": true,
+                "position": {
+                    "x": 165,
+                    "y": 314
+                }
+            },
+            "parameters": [
+                {
+                    "name": "GlobalVoice",
+                    "value": "Olivia"
+                },
+                {
+                    "name": "GlobalEngine",
+                    "value": "Neural"
+                },
+                {
+                    "name": "SpeakingStyle",
+                    "value": "None"
+                }
+            ],
+            "type": "SetVoice"
+        },
+        {
+            "branches": [
+                {
+                    "condition": "Success",
+                    "transition": "7fde898a-69c0-46fb-a9ef-eecad503502e"
+                },
+                {
+                    "condition": "InvalidNumber",
+                    "transition": "021fbe23-b9f8-40b3-a146-8210e43ca967"
+                },
+                {
+                    "condition": "Error",
+                    "transition": "da83e46a-6d87-418f-a571-9a6dd89bc9cb"
+                }
+            ],
+            "id": "845de017-7770-4f93-ba05-e7affffd0e88",
+            "metadata": {
+                "countryCodePrefix": "+61",
+                "position": {
+                    "x": 717,
+                    "y": 576
+                },
+                "useDynamic": false,
+                "useDynamicForEncryptionKeys": true,
+                "useDynamicForTerminatorDigits": false
+            },
+            "parameters": [
+                {
+                    "name": "Text",
+                    "namespace": null,
+                    "value": "Please enter a mobile number."
+                },
+                {
+                    "name": "TextToSpeechType",
+                    "value": "text"
+                },
+                {
+                    "name": "CustomerInputType",
+                    "value": "PhoneNumber"
+                },
+                {
+                    "name": "Timeout",
+                    "value": "15"
+                },
+                {
+                    "name": "PhoneNumberFormat",
+                    "value": "Local"
+                },
+                {
+                    "name": "CountryCode",
+                    "value": "AU"
+                }
+            ],
+            "type": "StoreUserInput"
+        },
+        {
+            "branches": [
+                {
+                    "condition": "Success",
+                    "transition": "aff6ee6d-f1a3-49de-aa1b-d119152870f0"
+                }
+            ],
+            "id": "021fbe23-b9f8-40b3-a146-8210e43ca967",
+            "metadata": {
+                "position": {
+                    "x": 407,
+                    "y": 382
+                },
+                "useDynamic": false
+            },
+            "parameters": [
+                {
+                    "name": "Text",
+                    "namespace": null,
+                    "value": "Hi! Welcome to the emergency paging system. You need to either be calling from an Australian mobile or be available on an Australian mobile number. We validate this number via SMS."
+                },
+                {
+                    "name": "TextToSpeechType",
+                    "value": "text"
+                }
+            ],
+            "type": "PlayPrompt"
+        },
+        {
+            "branches": [
+                {
+                    "condition": "Success",
+                    "transition": "46513db9-920a-4ccd-952c-a61219616672"
+                },
+                {
+                    "condition": "Error",
+                    "transition": "3e4234eb-1132-4981-a5eb-06eb34d30d56"
+                }
+            ],
+            "id": "fb43fc11-d2dc-4fc9-b22c-eaf02152cbdf",
+            "metadata": {
+                "countryCodePrefix": "+1",
+                "position": {
+                    "x": 994,
+                    "y": 655
+                },
+                "useDynamic": false,
+                "useDynamicForEncryptionKeys": true,
+                "useDynamicForTerminatorDigits": false
+            },
+            "parameters": [
+                {
+                    "name": "Text",
+                    "namespace": null,
+                    "value": "Please enter the 4 digit number that I just sent via SMS."
+                },
+                {
+                    "name": "TextToSpeechType",
+                    "value": "text"
+                },
+                {
+                    "name": "CustomerInputType",
+                    "value": "Custom"
+                },
+                {
+                    "name": "Timeout",
+                    "value": "20"
+                },
+                {
+                    "name": "MaxDigits",
+                    "value": 4
+                },
+                {
+                    "name": "EncryptEntry",
+                    "value": false
+                },
+                {
+                    "name": "DisableCancel",
+                    "value": false
+                }
+            ],
+            "type": "StoreUserInput"
+        },
+        {
+            "branches": [
+                {
+                    "condition": "Success",
+                    "transition": "be627dc9-ddc7-46d7-a813-0c83a94fd18c"
+                }
+            ],
+            "id": "6afe1f28-0d43-41f9-8493-48bf93c261af",
+            "metadata": {
+                "position": {
+                    "x": 1717,
+                    "y": 713
+                },
+                "useDynamic": false
+            },
+            "parameters": [
+                {
+                    "name": "Text",
+                    "namespace": null,
+                    "value": "There was an error checking the 4 digit code and have exhausted allowed attempts."
+                },
+                {
+                    "name": "TextToSpeechType",
+                    "value": "text"
+                }
+            ],
+            "type": "PlayPrompt"
+        },
+        {
+            "branches": [
+                {
+                    "condition": "Success",
+                    "transition": "a7fab28a-584a-4a99-aacf-d92358729c8b"
+                },
+                {
+                    "condition": "Error",
+                    "transition": "e62ea169-6a55-4818-b69b-5653f2c61739"
+                }
+            ],
+            "id": "67257e8d-879e-443f-a291-b81961963da3",
+            "metadata": {
+                "dynamicMetadata": {
+                    "Number": false
+                },
+                "position": {
+                    "x": 645,
+                    "y": 857
+                },
+                "useDynamic": false
+            },
+            "parameters": [
+                {
+                    "name": "FunctionArn",
+                    "namespace": null,
+                    "value": "SendSMSARN"
+                },
+                {
+                    "name": "TimeLimit",
+                    "value": "3"
+                },
+                {
+                    "key": "Number",
+                    "name": "Parameter",
+                    "namespace": null,
+                    "value": "$.External.Number"
+                }
+            ],
+            "target": "Lambda",
+            "type": "InvokeExternalResource"
+        },
+        {
+            "branches": [
+                {
+                    "condition": "Looping",
+                    "transition": "fb43fc11-d2dc-4fc9-b22c-eaf02152cbdf"
+                },
+                {
+                    "condition": "Complete",
+                    "transition": "6afe1f28-0d43-41f9-8493-48bf93c261af"
+                }
+            ],
+            "id": "a7fab28a-584a-4a99-aacf-d92358729c8b",
+            "metadata": {
+                "position": {
+                    "x": 1324,
+                    "y": 1326
+                },
+                "useDynamic": false
+            },
+            "parameters": [
+                {
+                    "name": "LoopCount",
+                    "value": "3"
+                }
+            ],
+            "type": "Loop"
+        }
+    ],
+    "start": "10160628-a8df-48b5-b8b1-3715d2c03cbd",
+    "type": "contactFlow",
+    "version": "1"
+}
