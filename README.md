@@ -1,10 +1,18 @@
 # Connect Escalation
 
 
-Notes:
+## Notes
 
 `gsed` is used on MacOS (Installed via brew), because `sed` was on MacOS doesn't support `-i`.
 Change to `sed` if on another platform
+
+I've designed this to work in Australia specifically. Lambda and Connect configuration and code will need to be changed for other countries.
+
+## Requirements
+* A working Connect Instance with a claimed number
+* An integration Ops Genie API Key with alert create permissions
+
+## TL;DR
 
 Setup:
 ```
@@ -13,6 +21,12 @@ export OPSGENIE_KEY="abc123"
 export STACK_NAME=esc
 ```
 
+Let's go:
+```
+./deploy.sh
+```
+
+## Details
 
 Create CloudFormation Stack:
 ```
@@ -45,10 +59,12 @@ cd ../
 zip -g escalation-deployment-package.zip *.py
 ```
 
+Get the Lambda function ARNs to use in the next step:
 ```
 $(aws cloudformation describe-stacks --stack-name $STACK_NAME --output text --query 'Stacks[0].Outputs' | tr "\t" "=" | sed 's/^/export /')
 ```
 
+Update the Connect configuration ready for import and deploy the _real_ code to the Lambda function:
 ```
 for function in SendPageARN Check4DigitCodeARN SendSMSARN CheckCallerIDARN
 do
@@ -57,4 +73,7 @@ do
 done
 ```
 
+## Connect Instance
 Create a new Contact flow and import `Escalation.json`.
+
+Change the _contact flow/IVR_ on the phone number you want to use to `Escalation`.
