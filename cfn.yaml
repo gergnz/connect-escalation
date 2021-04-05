@@ -1,0 +1,230 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Creates the DynamoDB Tables, lambda functions and IAM policy/role for use by the Connect setup
+Parameters:
+  ConnectInstanceARN:
+    Type: String
+    AllowedPattern: ^arn:aws:connect:.*:\d{12}:instance/.{36}$
+    Description: The ARN of the Connect Instance
+  OpsGenieAPIKEY:
+    Type: String
+    Description: An API KEY from OpsGenie that can send alerts.
+Resources:
+  Table:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        -  
+          AttributeName: ContactId
+          AttributeType: S
+      KeySchema:
+        -
+          AttributeName: ContactId
+          KeyType: HASH
+      TimeToLiveSpecification:
+        AttributeName: TTL
+        Enabled: True
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+  Policy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action:
+              - dynamodb:DeleteItem
+              - dynamodb:GetItem
+              - dynamodb:PutItem
+            Resource: !GetAtt Table.Arn
+          - Effect: Allow
+            Action:
+              - sns:Publish
+            Resource: '*'
+  Role:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: /
+      ManagedPolicyArns:
+        - !Ref Policy
+
+  SendSMSFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        ZipFile: |
+          def lambda_handler(event, context):
+            return {}
+      Environment:
+        Variables:
+          TABLE: !Ref Table
+          APIKEY: !Ref OpsGenieAPIKEY
+      Role: !GetAtt Role.Arn
+      Runtime: python3.8
+      Handler: SendSMS.lambda_handler
+  SendSMSPermission:
+    Type: AWS::Lambda::Permission
+    Properties: 
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref SendSMSFunction
+      Principal: connect.amazonaws.com
+      SourceArn: !Ref ConnectInstanceARN
+  SendSMSLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties: 
+      LogGroupName: !Sub /aws/lambda/${SendSMSFunction}
+      RetentionInDays: 7
+  SendSMSPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Roles:
+        - !Ref Role
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action:
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${SendSMSFunction}:*
+
+  SendPageFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        ZipFile: |
+          def lambda_handler(event, context):
+            return {}
+      Environment:
+        Variables:
+          TABLE: !Ref Table
+          APIKEY: !Ref OpsGenieAPIKEY
+      Role: !GetAtt Role.Arn
+      Runtime: python3.8
+      Handler: SendPage.lambda_handler
+  SendPagePermission:
+    Type: AWS::Lambda::Permission
+    Properties: 
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref SendPageFunction
+      Principal: connect.amazonaws.com
+      SourceArn: !Ref ConnectInstanceARN
+  SendPageLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties: 
+      LogGroupName: !Sub /aws/lambda/${SendPageFunction}
+      RetentionInDays: 7
+  SendPagePolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Roles:
+        - !Ref Role
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action:
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${SendPageFunction}:*
+
+  Check4DigitCodeFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        ZipFile: |
+          def lambda_handler(event, context):
+            return {}
+      Environment:
+        Variables:
+          TABLE: !Ref Table
+          APIKEY: !Ref OpsGenieAPIKEY
+      Role: !GetAtt Role.Arn
+      Runtime: python3.8
+      Handler: Check4DigitCode.lambda_handler
+  Check4DigitCodePermission:
+    Type: AWS::Lambda::Permission
+    Properties: 
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref Check4DigitCodeFunction
+      Principal: connect.amazonaws.com
+      SourceArn: !Ref ConnectInstanceARN
+  Check4DigitCodeLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties: 
+      LogGroupName: !Sub /aws/lambda/${Check4DigitCodeFunction}
+      RetentionInDays: 7
+  Check4DigitCodePolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Roles:
+        - !Ref Role
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action:
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${Check4DigitCodeFunction}:*
+
+  CheckCallerIDFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        ZipFile: |
+          def lambda_handler(event, context):
+            return {}
+      Environment:
+        Variables:
+          TABLE: !Ref Table
+          APIKEY: !Ref OpsGenieAPIKEY
+      Role: !GetAtt Role.Arn
+      Runtime: python3.8
+      Handler: CheckCallerID.lambda_handler
+  CheckCallerIDPermission:
+    Type: AWS::Lambda::Permission
+    Properties: 
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref CheckCallerIDFunction
+      Principal: connect.amazonaws.com
+      SourceArn: !Ref ConnectInstanceARN
+  CheckCallerIDLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties: 
+      LogGroupName: !Sub /aws/lambda/${CheckCallerIDFunction}
+      RetentionInDays: 7
+  CheckCallerIDPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Roles:
+        - !Ref Role
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action:
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${CheckCallerIDFunction}:*
+
+Outputs:
+  SendPageARN:
+    Value: !GetAtt SendPageFunction.Arn
+  Check4DigitCodeARN:
+    Value: !GetAtt Check4DigitCodeFunction.Arn
+  CheckCallerIDARN:
+    Value: !GetAtt CheckCallerIDFunction.Arn
+  SendSMSARN:
+    Value: !GetAtt SendSMSFunction.Arn
